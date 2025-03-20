@@ -1,0 +1,99 @@
+{
+  "roles": {
+    "admin": {
+      "description": "Full system access including configuration, deployment, and agent management",
+      "permissions": [
+        "view_system",
+        "manage_system",
+        "manage_agents",
+        "manage_infrastructure",
+        "manage_users",
+        "view_logs",
+        "manage_plugins",
+        "manage_security"
+      ]
+    },
+    "manager": {
+      "description": "Can manage agents and workflows but not infrastructure or security settings",
+      "permissions": [
+        "view_system",
+        "manage_agents",
+        "view_logs",
+        "manage_plugins"
+      ]
+    },
+    "operator": {
+      "description": "Can configure and run agents but not create new ones",
+      "permissions": [
+        "view_system",
+        "view_logs",
+        "use_agents",
+        "configure_agents"
+      ]
+    },
+    "user": {
+      "description": "Basic user who can interact with agents but not configure them",
+      "permissions": [
+        "view_system",
+        "use_agents"
+      ]
+    },
+    "viewer": {
+      "description": "Read-only access to system dashboards",
+      "permissions": [
+        "view_system"
+      ]
+    }
+  },
+  "permissions": {
+    "view_system": {
+      "description": "View system dashboards and status",
+      "resources": ["dashboard", "reports"]
+    },
+    "manage_system": {
+      "description": "Configure global system settings",
+      "resources": ["system_settings", "configuration"]
+    },
+    "manage_agents": {
+      "description": "Create, modify, and delete agent configurations",
+      "resources": ["agents", "agent_templates"]
+    },
+    "manage_infrastructure": {
+      "description": "Manage infrastructure resources via Terraform",
+      "resources": ["terraform", "kubernetes", "database"]
+    },
+    "manage_users": {
+      "description": "Add, modify, and remove user accounts and roles",
+      "resources": ["users", "roles"]
+    },
+    "view_logs": {
+      "description": "Access system logs and agent activity history",
+      "resources": ["logs", "audit_trails"]
+    },
+    "manage_plugins": {
+      "description": "Add, configure, and remove plugins",
+      "resources": ["plugins", "integrations"]
+    },
+    "manage_security": {
+      "description": "Configure security policies and view security alerts",
+      "resources": ["security_policies", "alerts"]
+    },
+    "use_agents": {
+      "description": "Interact with deployed agents",
+      "resources": ["agent_interactions"]
+    },
+    "configure_agents": {
+      "description": "Modify settings of existing agents",
+      "resources": ["agent_settings"]
+    }
+  },
+  "audit_settings": {
+    "log_all_actions": true,
+    "sensitive_operations": [
+      "manage_infrastructure",
+      "manage_users",
+      "manage_security"
+    ],
+    "retention_period_days": 90
+  }
+}
