@@ -35,6 +35,24 @@ The system consists of several key components:
 - AWS Account (for cloud deployment) or local Kubernetes setup
 - Python 3.10+
 
+### Quick Testing
+
+For the fastest way to test 371GPT with Podman without setting up environment variables:
+
+```bash
+# Create pod and run PostgreSQL
+podman pod create --name 371gpt-test -p 8000:8000
+podman run -d --pod 371gpt-test --name db -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=testdb postgres:15-alpine
+
+# Run UI service with minimal settings
+podman build -t 371gpt-ui-test ./services/ui
+podman run -d --pod 371gpt-test --name ui-test -e JWT_SECRET=test-secret 371gpt-ui-test
+```
+
+Access the UI at http://localhost:8000
+
+See [Quick Test Guide](docs/quick-test.md) for more details.
+
 ### Running with Docker
 
 1. Clone this repository:
@@ -108,6 +126,8 @@ The system consists of several key components:
 - Remove all services: `podman pod rm -f 371gpt-pod`
 - View logs: `podman logs -f <container-name>` (e.g., `podman logs -f ui`)
 
+See [Podman Commands Reference](docs/podman-commands.md) for more details.
+
 ### Cloud Deployment
 
 For cloud deployment:
@@ -130,6 +150,9 @@ For cloud deployment:
 - [Administrator Guide](docs/admin-guide.md): System configuration and management
 - [Development Guide](docs/dev-guide.md): How to extend and customize 371GPT
 - [Architecture Overview](docs/architecture.md): Detailed system design
+- [Testing Guide](docs/testing-guide.md): Comprehensive testing instructions
+- [Quick Test Guide](docs/quick-test.md): Simplified testing procedures
+- [Podman Commands](docs/podman-commands.md): Reference for Podman commands
 
 ## Contributing
 
