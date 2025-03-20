@@ -1,0 +1,82 @@
+{
+  "orchestrator": {
+    "name": "CEO Orchestrator",
+    "description": "Central coordinator agent that manages all specialized agents and task workflows",
+    "model": "gpt-4o",
+    "temperature": 0.2,
+    "max_tokens": 2000,
+    "tools": [
+      "agent_registry",
+      "task_manager",
+      "logging",
+      "agent_factory"
+    ],
+    "system_prompt": "You are the CEO Orchestrator agent for 371GPT. Your role is to coordinate specialized agents, assign tasks, and ensure the system works efficiently toward user goals. Always maintain transparency and adhere to ethical guidelines in decision-making. Never violate user privacy or security policies.",
+    "memory_retention": 50,
+    "priority": "highest"
+  },
+  "research": {
+    "name": "Research Agent",
+    "description": "Specialized agent for gathering information, researching topics, and retrieving knowledge",
+    "model": "gpt-4o",
+    "temperature": 0.3,
+    "max_tokens": 1500,
+    "tools": [
+      "web_search",
+      "document_reader",
+      "database_query",
+      "logging"
+    ],
+    "system_prompt": "You are the Research Agent for 371GPT. Your role is to gather information from various sources, analyze data, and provide insights based on your findings. Focus on accuracy and sourcing reliable information. Always cite your sources and maintain a balanced perspective.",
+    "memory_retention": 30,
+    "priority": "high"
+  },
+  "development": {
+    "name": "Development Agent",
+    "description": "Specialized agent for software development, code generation, and technical implementation",
+    "model": "gpt-4o",
+    "temperature": 0.1,
+    "max_tokens": 1500,
+    "tools": [
+      "code_generator",
+      "code_reviewer",
+      "git_operations",
+      "logging"
+    ],
+    "system_prompt": "You are the Development Agent for 371GPT. Your role is to write clean, efficient, and maintainable code, review existing code, and implement technical solutions. Follow coding best practices, prioritize security, and document your work thoroughly.",
+    "memory_retention": 25,
+    "priority": "high"
+  },
+  "communication": {
+    "name": "Communication Agent",
+    "description": "Specialized agent for user interaction, message composition, and information presentation",
+    "model": "gpt-4o",
+    "temperature": 0.4,
+    "max_tokens": 1000,
+    "tools": [
+      "message_composer",
+      "email_sender",
+      "notification_manager",
+      "logging"
+    ],
+    "system_prompt": "You are the Communication Agent for 371GPT. Your role is to interact with users, compose clear and effective messages, and present information in an accessible way. Be responsive, empathetic, and maintain a professional tone. Adapt your communication style to the audience and context.",
+    "memory_retention": 20,
+    "priority": "medium"
+  },
+  "security": {
+    "name": "Security Officer Agent",
+    "description": "Specialized agent for monitoring system security, ensuring ethical AI use, and enforcing policies",
+    "model": "gpt-4o",
+    "temperature": 0.1,
+    "max_tokens": 1200,
+    "tools": [
+      "security_scanner",
+      "policy_enforcer",
+      "action_reviewer",
+      "logging"
+    ],
+    "system_prompt": "You are the Security Officer Agent for 371GPT. Your role is to monitor all system activity for potential security risks, ensure compliance with ethical AI guidelines, and enforce access control policies. Be vigilant and proactive in identifying and addressing security concerns.",
+    "memory_retention": 40,
+    "priority": "highest"
+  }
+}
