@@ -1,0 +1,117 @@
+version: '3.8'
+
+services:
+  # Database services
+  postgres:
+    image: postgres:15-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USER:-dbadmin}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-dbpassword}
+      POSTGRES_DB: ${DB_NAME:-371gpt_db}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-dbadmin} -d ${DB_NAME:-371gpt_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # NocoDB UI for database management
+  nocodb:
+    image: nocodb/nocodb:latest
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "8081:8080"
+    environment:
+      NC_DB: "pg://${DB_USER:-dbadmin}:${DB_PASSWORD:-dbpassword}@postgres:5432/${DB_NAME:-371gpt_db}"
+      NC_AUTH_JWT_SECRET: ${JWT_SECRET:-371gpt-jwt-secret}
+    restart: unless-stopped
+
+  # Orchestrator service
+  orchestrator:
+    build:
+      context: ./services/orchestrator
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - PORTKEY_API_KEY=${PORTKEY_API_KEY:-your-portkey-api-key}
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=${DB_USER:-dbadmin}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-dbpassword}
+      - POSTGRES_DB=${DB_NAME:-371gpt_db}
+      - JWT_SECRET=${JWT_SECRET:-371gpt-jwt-secret}
+      - AGENT_CONFIG_PATH=/app/config/agents/agent-config.json
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./config:/app/config
+
+  # Research agent service
+  research_agent:
+    build:
+      context: ./services/research_agent
+      dockerfile: Dockerfile
+    depends_on:
+      - orchestrator
+    environment:
+      - PORTKEY_API_KEY=${PORTKEY_API_KEY:-your-portkey-api-key}
+      - ORCHESTRATOR_URL=http://orchestrator:8080
+      - LOG_LEVEL=INFO
+    volumes:
+      - ./config:/app/config
+
+  # UI service with NiceGUI
+  ui:
+    build:
+      context: ./services/ui
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+      - orchestrator
+    environment:
+      - ORCHESTRATOR_URL=http://orchestrator:8080
+      - JWT_SECRET=${JWT_SECRET:-371gpt-jwt-secret}
+    volumes:
+      - ./config:/app/config
+
+  # Monitoring and observability
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--web.enable-lifecycle'
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    volumes:
+      - ./config/grafana/provisioning:/etc/grafana/provisioning
+      - grafana_data:/var/lib/grafana
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin}
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+volumes:
+  postgres_data:
+  prometheus_data:
+  grafana_data:
