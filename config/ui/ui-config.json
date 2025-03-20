@@ -1,0 +1,99 @@
+{
+  "theme": {
+    "primary_color": "#1E3A8A",
+    "secondary_color": "#4F46E5",
+    "accent_color": "#06B6D4",
+    "error_color": "#EF4444",
+    "warning_color": "#F59E0B",
+    "success_color": "#10B981",
+    "info_color": "#3B82F6",
+    "dark_mode": false,
+    "font_family": "Roboto, sans-serif"
+  },
+  "layout": {
+    "sidebar_width": "250px",
+    "content_max_width": "1200px",
+    "header_height": "64px",
+    "footer_height": "40px",
+    "card_border_radius": "8px",
+    "button_border_radius": "4px",
+    "table_dense": true,
+    "animation_duration": "0.3s"
+  },
+  "dashboard": {
+    "auto_refresh_interval": 5,
+    "show_system_stats": true,
+    "show_recent_activity": true,
+    "show_quick_actions": true,
+    "max_recent_activities": 10
+  },
+  "agents": {
+    "display_fields": [
+      "name",
+      "description",
+      "status",
+      "last_active"
+    ],
+    "sortable_fields": [
+      "name",
+      "status",
+      "last_active"
+    ],
+    "filterable_fields": [
+      "status",
+      "type"
+    ]
+  },
+  "tasks": {
+    "display_fields": [
+      "description",
+      "status",
+      "priority",
+      "created_at",
+      "assigned_to"
+    ],
+    "sortable_fields": [
+      "priority",
+      "status",
+      "created_at"
+    ],
+    "filterable_fields": [
+      "status",
+      "priority",
+      "assigned_to"
+    ],
+    "priority_levels": [
+      "low",
+      "medium",
+      "high",
+      "highest"
+    ],
+    "status_colors": {
+      "created": "#3B82F6",
+      "running": "#F59E0B",
+      "completed": "#10B981",
+      "failed": "#EF4444",
+      "paused": "#6B7280"
+    }
+  },
+  "logs": {
+    "auto_refresh_interval": 3,
+    "max_visible_logs": 100,
+    "log_retention_days": 7,
+    "log_level_colors": {
+      "DEBUG": "#9CA3AF",
+      "INFO": "#3B82F6",
+      "WARNING": "#F59E0B",
+      "ERROR": "#EF4444",
+      "CRITICAL": "#7F1D1D"
+    },
+    "enable_real_time_alerts": true
+  },
+  "security": {
+    "session_timeout_minutes": 60,
+    "require_login": true,
+    "allow_guest_view": false,
+    "max_login_attempts": 5,
+    "lockout_duration_minutes": 15
+  }
+}
