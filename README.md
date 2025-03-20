@@ -30,12 +30,12 @@ The system consists of several key components:
 
 ### Prerequisites
 
-- Docker and Docker Compose
-- Terraform 1.4+
+- Docker and Docker Compose OR Podman
+- Terraform 1.4+ (for cloud deployment)
 - AWS Account (for cloud deployment) or local Kubernetes setup
 - Python 3.10+
 
-### Quick Start
+### Running with Docker
 
 1. Clone this repository:
    ```
@@ -43,11 +43,10 @@ The system consists of several key components:
    cd 371GPT
    ```
 
-2. Set up local development environment:
+2. Set up environment variables:
    ```
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   pip install -r requirements.txt
+   cp .env.example .env
+   # Edit .env with your settings
    ```
 
 3. Run the local development stack:
@@ -55,9 +54,61 @@ The system consists of several key components:
    docker-compose up -d
    ```
 
-4. Access the admin interface at http://localhost:8080
+4. Access the admin interface at http://localhost:8000
 
-### Deployment
+### Running with Podman
+
+#### Linux/macOS
+
+1. Clone this repository:
+   ```
+   git clone https://github.com/ab1355/371GPT.git
+   cd 371GPT
+   ```
+
+2. Set up environment variables:
+   ```
+   cp .env.example .env
+   # Edit .env with your settings
+   ```
+
+3. Run the system using the provided script:
+   ```
+   chmod +x run-with-podman.sh
+   ./run-with-podman.sh
+   ```
+
+4. Access the admin interface at http://localhost:8000
+
+#### Windows
+
+1. Clone this repository:
+   ```
+   git clone https://github.com/ab1355/371GPT.git
+   cd 371GPT
+   ```
+
+2. Set up environment variables:
+   ```
+   copy .env.example .env
+   # Edit .env with your settings
+   ```
+
+3. Run the system using the provided PowerShell script:
+   ```
+   .\run-with-podman.ps1
+   ```
+
+4. Access the admin interface at http://localhost:8000
+
+### Podman Management Commands
+
+- Stop all services: `podman pod stop 371gpt-pod`
+- Start all services: `podman pod start 371gpt-pod`
+- Remove all services: `podman pod rm -f 371gpt-pod`
+- View logs: `podman logs -f <container-name>` (e.g., `podman logs -f ui`)
+
+### Cloud Deployment
 
 For cloud deployment:
 
