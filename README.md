@@ -16,15 +16,22 @@ The system follows the DSF model:
 - **Space**: Collaborative low-code interface for configuration
 - **Flow**: Seamless AI task execution and automation
 
-## Architecture
+## Quick Start for Testing
 
-The system consists of several key components:
+For the fastest way to test individual components:
 
-- **CEO Orchestrator Agent**: Central coordinator that manages all specialized agents
-- **Specialized Agents**: Domain-specific agents (Research, Development, Communication, etc.)
-- **NiceGUI Interface**: Web-based dashboard for system configuration and monitoring
-- **PluginBoard**: Tool management system for agent capabilities
-- **Infrastructure Layer**: Terraform-managed cloud resources for scalable deployment
+```powershell
+# Test just the UI component
+.\simple-test.ps1 -Component ui -Port 8000
+
+# Test just the database
+.\simple-test.ps1 -Component db -Port 5432
+
+# Clean up after testing
+.\simple-test.ps1 -CleanUp
+```
+
+This allows you to test components in isolation before trying the full system.
 
 ## Getting Started
 
@@ -34,24 +41,6 @@ The system consists of several key components:
 - Terraform 1.4+ (for cloud deployment)
 - AWS Account (for cloud deployment) or local Kubernetes setup
 - Python 3.10+
-
-### Quick Testing
-
-For the fastest way to test 371GPT with Podman without setting up environment variables:
-
-```bash
-# Create pod and run PostgreSQL
-podman pod create --name 371gpt-test -p 8000:8000
-podman run -d --pod 371gpt-test --name db -e POSTGRES_USER=test -e POSTGRES_PASSWORD=test -e POSTGRES_DB=testdb postgres:15-alpine
-
-# Run UI service with minimal settings
-podman build -t 371gpt-ui-test ./services/ui
-podman run -d --pod 371gpt-test --name ui-test -e JWT_SECRET=test-secret 371gpt-ui-test
-```
-
-Access the UI at http://localhost:8000
-
-See [Quick Test Guide](docs/quick-test.md) for more details.
 
 ### Running with Docker
 
@@ -128,24 +117,10 @@ See [Quick Test Guide](docs/quick-test.md) for more details.
 
 See [Podman Commands Reference](docs/podman-commands.md) for more details.
 
-### Cloud Deployment
-
-For cloud deployment:
-
-1. Configure your AWS credentials
-2. Initialize Terraform:
-   ```
-   cd terraform
-   terraform init
-   ```
-
-3. Deploy to development environment:
-   ```
-   terraform apply -var-file=environments/dev.tfvars
-   ```
-
 ## Documentation
 
+- [Comprehensive Guide](docs/comprehensive-guide.md): Detailed setup, configuration, and usage instructions
+- [Solopreneur Guide](docs/solopreneur-guide.md): Tailored guidance for solopreneurs
 - [User Guide](docs/user-guide.md): How to use the 371GPT system
 - [Administrator Guide](docs/admin-guide.md): System configuration and management
 - [Development Guide](docs/dev-guide.md): How to extend and customize 371GPT
@@ -153,6 +128,16 @@ For cloud deployment:
 - [Testing Guide](docs/testing-guide.md): Comprehensive testing instructions
 - [Quick Test Guide](docs/quick-test.md): Simplified testing procedures
 - [Podman Commands](docs/podman-commands.md): Reference for Podman commands
+- [Troubleshooting](docs/troubleshooting.md): Solutions to common issues
+
+## For Solopreneurs
+
+If you're a solopreneur looking to use 371GPT for your business, we've created a [specialized guide](docs/solopreneur-guide.md) that covers:
+
+- Cost-effective deployment options
+- Customization for your specific business
+- Integration with common solopreneur tools
+- Scaling as your business grows
 
 ## Contributing
 
