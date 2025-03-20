@@ -39,7 +39,7 @@ This allows you to test components in isolation before trying the full system.
 
 - Docker and Docker Compose OR Podman
 - Terraform 1.4+ (for cloud deployment)
-- AWS Account (for cloud deployment) or local Kubernetes setup
+- OVH Cloud Account (for hosting) or local Kubernetes setup
 - Python 3.10+
 
 ### Running with Docker
@@ -119,25 +119,33 @@ See [Podman Commands Reference](docs/podman-commands.md) for more details.
 
 ## Documentation
 
+### Core System
 - [Comprehensive Guide](docs/comprehensive-guide.md): Detailed setup, configuration, and usage instructions
-- [Solopreneur Guide](docs/solopreneur-guide.md): Tailored guidance for solopreneurs
-- [User Guide](docs/user-guide.md): How to use the 371GPT system
-- [Administrator Guide](docs/admin-guide.md): System configuration and management
-- [Development Guide](docs/dev-guide.md): How to extend and customize 371GPT
 - [Architecture Overview](docs/architecture.md): Detailed system design
 - [Testing Guide](docs/testing-guide.md): Comprehensive testing instructions
 - [Quick Test Guide](docs/quick-test.md): Simplified testing procedures
 - [Podman Commands](docs/podman-commands.md): Reference for Podman commands
 - [Troubleshooting](docs/troubleshooting.md): Solutions to common issues
 
-## For Solopreneurs
+### 371 Minds Business Implementation
+- [371 Minds Implementation Plan](docs/371-minds-implementation.md): Complete plan for implementing XaaS offerings
+- [Pimcore & Odoo Integration](docs/pimcore-odoo-integration.md): Guide to integrating these complementary systems
+- [RapidAPI & XPipe Integration](docs/rapidapi-xpipe-integration.md): Implementation of API monetization and data flows
 
-If you're a solopreneur looking to use 371GPT for your business, we've created a [specialized guide](docs/solopreneur-guide.md) that covers:
+### User Guides
+- [Solopreneur Guide](docs/solopreneur-guide.md): Tailored guidance for solopreneurs
+- [User Guide](docs/user-guide.md): How to use the 371GPT system
+- [Administrator Guide](docs/admin-guide.md): System configuration and management
+- [Development Guide](docs/dev-guide.md): How to extend and customize 371GPT
 
-- Cost-effective deployment options
-- Customization for your specific business
-- Integration with common solopreneur tools
-- Scaling as your business grows
+## For Businesses
+
+If you're looking to use 371GPT as the foundation for an "Everything as a Service" (XaaS) business model, our [371 Minds Implementation Plan](docs/371-minds-implementation.md) covers:
+
+- Comprehensive technology stack including Odoo, Pimcore, RapidAPI, and XPipe
+- Industry-specific implementations and customizations
+- Multiple revenue stream development
+- Phased implementation approach with clear timelines
 
 ## Contributing
 
